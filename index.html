@@ -26,6 +26,7 @@
 var scene, camera, renderer, clock, deltaTime, totalTime;
 var arToolkitSource, arToolkitContext;
 var markerRoot1;
+// var markerRoot2;
 var mesh1;
 initialize();
 animate();
@@ -96,16 +97,22 @@ window.innerWidth/window.innerHeight, 0.1, 1000);
 	////////////////////////////////////////////////////////////
 	// build markerControls
 	markerRoot1 = new THREE.Group();
+	// markerRoot2 = new THREE.Group();
+
 	scene.add(markerRoot1);
 	let markerControls1 = new THREEx.ArMarkerControls(arToolkitContext, markerRoot1, {
 //change
-		type: 'pattern', patternUrl: "data/pattern-GLUG.patt",
+		type: 'pattern', patternUrl: "data/g.patt",
 	})
+// 	let markerControls2 = new THREEx.ArMarkerControls(arToolkitContext, markerRoot1, {
+// //change
+// 		type: 'pattern', patternUrl: "data/pattern-GLUG.patt",
+// 	})
 //change	
 	let geometry1 = new THREE.SphereGeometry(1, 32,32);
 	
 	let loader = new THREE.TextureLoader();
-	let texture = loader.load( 'images/earth.jpg', render );
+	let texture = loader.load( 'images/armeme.jpg', render );
 //change
 	let material1 = new THREE.MeshLambertMaterial( { map: texture, opacity: 1 } );
 	
@@ -115,6 +122,9 @@ window.innerWidth/window.innerHeight, 0.1, 1000);
 	//mesh1.position.y = 0;
 	
 	markerRoot1.add( mesh1 );
+	// markerRoot2.add( mesh1 );
+
+
 	
 	let pointLight = new THREE.PointLight( 0xffffff, 1, 100 );
 	pointLight.position.set(0.5,3,2);
@@ -126,7 +136,12 @@ window.innerWidth/window.innerHeight, 0.1, 1000);
 		) 
 	);
 	markerRoot1.add( pointLight );
+	// markerRoot2.add( pointLight );
+// 
 	
+
+	
+
 	//camera.lookAt(new THREE.Vector3(0,0,0));
 }
 function update()
@@ -143,7 +158,7 @@ function update()
 			else if (mesh1.rotation.z <= mesh1.rotation.y && mesh1.rotation.z <= mesh1.rotation.x){
 				mesh1.rotation.y += 0.03;
 			}*/
-			mesh1.rotation.y-=0.03;
+			mesh1.rotation.y-=0.02;
 		}
 	// update artoolkit on every frame
 	if ( arToolkitSource.ready !== false )
