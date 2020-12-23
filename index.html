@@ -26,8 +26,11 @@
 var scene, camera, renderer, clock, deltaTime, totalTime;
 var arToolkitSource, arToolkitContext;
 var markerRoot1;
-// var markerRoot2;
+var markerRoot2;
+var markerRoot3;
 var mesh1;
+var mesh2;
+var mesh3;
 initialize();
 animate();
 function initialize()
@@ -97,22 +100,30 @@ window.innerWidth/window.innerHeight, 0.1, 1000);
 	////////////////////////////////////////////////////////////
 	// build markerControls
 	markerRoot1 = new THREE.Group();
-	// markerRoot2 = new THREE.Group();
+	markerRoot2 = new THREE.Group();
+	markerRoot3 = new THREE.Group();
+
 
 	scene.add(markerRoot1);
+	scene.add(markerRoot2);
+	scene.add(markerRoot3);
+
 	let markerControls1 = new THREEx.ArMarkerControls(arToolkitContext, markerRoot1, {
 //change
-		type: 'pattern', patternUrl: "data/g.patt",
+		type: 'pattern', patternUrl: "data/M.patt",
 	})
-// 	let markerControls2 = new THREEx.ArMarkerControls(arToolkitContext, markerRoot1, {
-// //change
-// 		type: 'pattern', patternUrl: "data/pattern-GLUG.patt",
-// 	})
-//change	
+	let markerControls2 = new THREEx.ArMarkerControls(arToolkitContext, markerRoot2, {
+//change
+		type: 'pattern', patternUrl: "data/V.patt",
+	})
+	let markerControls3 = new THREEx.ArMarkerControls(arToolkitContext, markerRoot3, {
+//change
+		type: 'pattern', patternUrl: "data/J.patt",
+	})	
 	let geometry1 = new THREE.SphereGeometry(1, 32,32);
 	
 	let loader = new THREE.TextureLoader();
-	let texture = loader.load( 'images/armeme.jpg', render );
+	let texture = loader.load( 'images/moon.jpg', render );
 //change
 	let material1 = new THREE.MeshLambertMaterial( { map: texture, opacity: 1 } );
 	
@@ -121,8 +132,41 @@ window.innerWidth/window.innerHeight, 0.1, 1000);
 //change	
 	//mesh1.position.y = 0;
 	
-	markerRoot1.add( mesh1 );
 	// markerRoot2.add( mesh1 );
+
+
+	let geometry2 = new THREE.SphereGeometry(1, 32,32);
+	
+	let loader2 = new THREE.TextureLoader();
+	let texture2 = loader2.load( 'images/venus.jpg', render );
+//change
+	let material2 = new THREE.MeshLambertMaterial( { map: texture2, opacity: 1 } );
+	
+	mesh2 = new THREE.Mesh( geometry2, material2 )
+	mesh2.rotation.x-=Math.PI/2;
+//change	
+	//mesh1.position.y = 0;
+
+	let geometry3 = new THREE.SphereGeometry(1, 32,32);
+	
+	let loader3 = new THREE.TextureLoader();
+	let texture3 = loader2.load( 'images/jupiter.jpg', render );
+//change
+	let material3 = new THREE.MeshLambertMaterial( { map: texture3, opacity: 1 } );
+	
+	mesh3 = new THREE.Mesh( geometry3, material3 )
+	mesh3.rotation.x-=Math.PI/2;
+//change	
+	//mesh1.position.y = 0;
+
+	markerRoot1.add( mesh1 );
+	
+	markerRoot2.add( mesh2 );
+
+	markerRoot3.add( mesh3 );
+
+
+
 
 
 	
@@ -136,7 +180,8 @@ window.innerWidth/window.innerHeight, 0.1, 1000);
 		) 
 	);
 	markerRoot1.add( pointLight );
-	// markerRoot2.add( pointLight );
+	markerRoot2.add( pointLight );
+	markerRoot3.add( pointLight );
 // 
 	
 
@@ -146,7 +191,7 @@ window.innerWidth/window.innerHeight, 0.1, 1000);
 }
 function update()
 {
-	if ( markerRoot1.visible )
+	if ( markerRoot1.visible)
 		{
 			//mesh1.rotation.z += 0.05;
 			/*if(mesh1.rotation.x <= mesh1.rotation.y && mesh1.rotation.x <= mesh1.rotation.z ){
@@ -159,6 +204,14 @@ function update()
 				mesh1.rotation.y += 0.03;
 			}*/
 			mesh1.rotation.y-=0.02;
+		}
+	if ( markerRoot2.visible)
+		{
+			mesh2.rotation.y-=0.02;
+		}
+	if ( markerRoot3.visible)
+		{
+			mesh3.rotation.y-=0.02;
 		}
 	// update artoolkit on every frame
 	if ( arToolkitSource.ready !== false )
